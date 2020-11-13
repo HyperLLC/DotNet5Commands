@@ -3,3 +3,7 @@
 ################################################################################
 
 /AspNetDotNet5Commands.VisualStudio/bin
+/AspNetDotNet5Commands.VisualStudio/obj
+/CodeFactoryDotNet5WebAppTest/bin/Debug/net5.0
+/CodeFactoryDotNet5WebAppTest/obj
+/AspNetDotNet5Commands.VisualStudio/.vs/AspNetDotNet5Commands.VisualStudio

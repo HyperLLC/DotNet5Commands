@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CodeFactory Demo</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/atom-one-light.css">
+    <link rel="stylesheet" href="~/css/custom-animation.css">
+    <link rel="stylesheet" href="~/css/slimmenu.min.css">
+    <link rel="stylesheet" href="~/css/swiper.min.css">
+    <link rel="stylesheet" href="~/css/style.min.css">
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <form runat="server">
+        <main class="main-area">            
+            @RenderBody()
+
+            <!-- ==================== Start Footer Area  ========================= -->
+            <footer class="footer-area bg-color2">
+                <div class="container">
+                    <div class="footer-widget-wrraper p-b-100">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <a href="#" class="footer-logo">FurBall</a>
+                                <div class="footer-widget">
+                                    <p>When you need a kickstart in your business and you have no time for coding for your website, will take that job </p>
+                                    <ul class="social-link list-inline">
+                                        <li class="list-inline-item"><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li class="list-inline-item"><a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a></li>
+                                        <li class="list-inline-item"><a href="https://www.reddit.com/"><i class="fab fa-reddit-alien"></i></a></li>
+                                        <li class="list-inline-item"><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="footer-widget">
+                                    <div class="widget-title">
+                                        <h5 class="heading-5">About</h5>
+                                    </div>
+                                    <ul class="widget-list list-inline">
+                                        <li>
+                                            <a href="#">
+                                                Partners
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Career
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Reviews
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Terms & Conditions
+                                                Help
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Help
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2">
+                                <div class="footer-widget">
+                                    <div class="widget-title">
+                                        <h5 class="heading-5">Solutionst</h5>
+                                    </div>
+                                    <ul class="widget-list list-inline">
+                                        <li><a href="#">Marketing Teams</a></li>
+                                        <li><a href="#">Creative Teams</a></li>
+                                        <li><a href="#">Your Company</a></li>
+                                        <li><a href="#">Enterprise</a></li>
+                                        <li><a href="#">Road map</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="footer-widget">
+                                    <div class="widget-title">
+                                        <h5 class="widget-title heading-5">Subscribe Us</h5>
+                                    </div>                                   
+                                    <div class="form-group"><input type="text" class="form-control" placeholder="Your Email"></div>
+                                    <div class="form-group m-0">
+                                        <button class="btn btn-primary btn-block" type="submit">Submit Now</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright-wrapper text-center">
+                        <p>© 2020 - Hyper CodeFactory Demo | <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+                    </div>
+                    <a href="#" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+                </div>
+                <ul class="footer-shape list-inline">
+                    <li class="left"><img src="~/images/footer-shap.png" alt="footer shape" /></li>
+                    <li class="right"><img src="~/images/footer-shap2.png" alt="footer shape" /></li>
+                </ul>
+            </footer>
+            <!-- ==================== End Footer Area  ========================= -->
+        </main>
+        <!-- gulp:js -->
+        <script src="~/js/jquery.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/jquery.easing.min.js"></script>
+        <script src="~/js/slimmenu.min.js"></script>
+        <script src="~/js/aos.min.js"></script>
+        <script src="~/js/highlight.pack.js"></script>
+        <script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/owl.carousel.thumbs.min.js"></script>
+        <script src="~/js/swiper.min.js"></script>
+        <script src="~/js/app.js"></script>
+        <!-- endgulp -->
+        @RenderSection("Scripts", required: false)
+    </form>
+    
+</body>
+</html>

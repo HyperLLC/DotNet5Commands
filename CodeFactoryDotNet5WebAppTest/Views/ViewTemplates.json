@@ -1,0 +1,54 @@
+{
+  "ViewTemplates": [
+    {
+      "Name": "Landing Page",
+      "File": "Landing.html"
+    },
+    {
+      "Name": "Content Page",
+      "File": "Content.html"
+    }
+  ],
+  "PartialViewTemplates": [
+    {
+      "Name": "App Screenshot Slideshow",
+      "File": "AppScreenshot.html"
+    },
+    {
+      "Name": "App Store Section",
+      "File": "AppStore.html"
+    },
+    {
+      "Name": "Contact Area Section",
+      "File": "ContactArea.html"
+    },
+    {
+      "Name": "Feature Section",
+      "File": "Feature.html"
+    },
+    {
+      "Name": "Get In Touch Section",
+      "File": "GetInTouch.html"
+    },
+    {
+      "Name": "News Letter Section",
+      "File": "NewsLetter.html"
+    },
+    {
+      "Name": "Pricing Section",
+      "File": "Pricing.html"
+    },
+    {
+      "Name": "Service Area Section",
+      "File": "ServiceArea.html"
+    },
+    {
+      "Name": "Testimonial Section",
+      "File": "Testimonials.html"
+    },
+    {
+      "Name": "Video Section",
+      "File": "Video.html"
+    }
+  ]
+}

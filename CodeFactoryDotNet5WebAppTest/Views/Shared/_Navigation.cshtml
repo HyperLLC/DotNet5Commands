@@ -1,0 +1,21 @@
+﻿<div class="header-nav">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="header-logo">
+                <a asp-area="" asp-controller="Home" asp-action="Main">><img src="~/images/Hyper_logo.svg" alt="header brand"> | Code</a>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <nav class="app-navbar">
+                <ul class="slimmenu main-menu">
+                    <li><a href="~/">Home</a></li>
+                    <li><a href="#feature" class="js-scroll-trigger">Features</a></li>
+                    <!--<li><a href="#pricing" class="js-scroll-trigger">Pricing</a></li> -->
+                    <li><a href="~/About">About</a></li>
+                    <li><a href="#contact" class="js-scroll-trigger">Contact</a></li>
+                    <li><a runat="server" id="signinLinkVisible" href="~/Profile" visible="false">Sign In</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
