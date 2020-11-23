@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
+namespace AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensions
 {
     public static class MethodExtensions
-    {
+    {     
         public static string CreateInterfaceDefinition(this CsMethod source)
         {
             return source.CSharpFormatInterfaceMethodSignature();
@@ -23,6 +23,11 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
         public static string CreateInterfaceDefinition(this CsEvent source)
         {
             return source.CSharpFormatInterfaceEventDeclaration();
+        }
+
+        public static string CreateDefaultDefinition(this CsField source)
+        {
+            return source.CSharpFormatFieldDeclaration();
         }
 
         public static string CreateDefaultDefinition(this CsMethod source)

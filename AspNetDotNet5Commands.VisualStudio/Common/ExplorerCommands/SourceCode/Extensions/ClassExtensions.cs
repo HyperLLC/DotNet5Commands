@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
+namespace AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensions
 {
     /// <summary>
     /// Class that holds extension methods for classes.

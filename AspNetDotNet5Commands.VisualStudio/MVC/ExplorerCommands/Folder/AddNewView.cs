@@ -1,22 +1,16 @@
-﻿using AspNetDotNet5Commands.VisualStudio.Common.Constants;
-using AspNetDotNet5Commands.VisualStudio.Common.Extensions;
+﻿using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Extensions;
+using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Project.Extensions;
 using AspNetDotNet5Commands.VisualStudio.Common.Models;
-using AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document;
+using AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Extensions;
 using AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder.Dialogs;
-using AspNetToDotNet5.Automation.Common.Enums;
-using CodeFactory.Document;
 using CodeFactory.DotNet.CSharp;
 using CodeFactory.Logging;
 using CodeFactory.VisualStudio;
 using CodeFactory.VisualStudio.SolutionExplorer;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
 {
@@ -74,9 +68,8 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
         {
             try
             {
-                //Hydrate solution and project details                
-                var solution = await VisualStudioActions.SolutionActions.GetSolutionAsync();
-                IReadOnlyList<VsProject> projectDetails = await solution.GetProjectsAsync(true);
+                //Get the current project
+                var projectDetails = await result.GetCurrentProjectAsync();
 
                 //Get view templates config file that provides a complete manifest of the view templates
                 if (await projectDetails.FindDocumentWithinProjectAsync("viewtemplates.json", true, false, VisualStudioModelType.Document) is VsDocument templateConfig)
@@ -109,13 +102,9 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
                         if (await projectDetails.FindDocumentWithinProjectAsync("controllers", true, true, VisualStudioModelType.ProjectFolder) is VsProjectFolder controllerFolder)
                         {
                             //Add the controller class
-                            CsSource controllerSourceCode = await controllerFolder.AddControllerAsync(viewName + "Controller", projectDetails.FirstOrDefault().Name);
+                            CsSource controllerSourceCode = await controllerFolder.AddControllerAsync(viewName + "Controller", projectDetails.Name);
                             await controllerSourceCode.AddActionResultMethodToControllerAsync(viewName);
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Oops, you did not enter a View Name and Select a template from the dialog.  Please try again.");
                     }
                 }                      
             }

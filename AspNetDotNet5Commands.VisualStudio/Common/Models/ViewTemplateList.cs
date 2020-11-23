@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace AspNetDotNet5Commands.VisualStudio.Common.Models
 {
-    public class ViewTemplateItem
+    public class ViewTemplateList
     {
-        public string Name { get; set; }
+        public ObservableCollection<ViewTemplateItem> ViewTemplates { get; set; }
 
-        public string File { get; set; }
+        public ObservableCollection<ViewTemplateItem> PartialViewTemplates { get; set; }
     }
 }
 

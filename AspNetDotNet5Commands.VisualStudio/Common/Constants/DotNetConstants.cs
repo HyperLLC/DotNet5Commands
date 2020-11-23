@@ -22,6 +22,11 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.Constants
         public const string MicrosoftExtensionLibraryForLoggingName = "Microsoft.Extensions.Logging.Abstractions";
 
         /// <summary>
+        /// The default namespace for the System component model for attribute annotations.
+        /// </summary>
+        public const string SystemComponentModelDataAnnotations = "System.ComponentModel.DataAnnotations";
+
+        /// <summary>
         /// Library name for the Microsoft Logger abstractions library.
         /// </summary>
         public const string MicrosoftLoggerLibraryName = "Microsoft.Extensions.Logging.Abstractions";

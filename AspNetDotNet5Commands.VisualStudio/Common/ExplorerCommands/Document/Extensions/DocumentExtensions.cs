@@ -8,13 +8,116 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
+namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Extensions
 {
     /// <summary>
     /// Class that holds extension methods that are used with Folders.
     /// </summary>
     public static class DocumentExtensions
     {
+        /// <summary>
+        /// Returns a list of non-source code documents from VsProject that have a matching extension.
+        /// </summary>
+        /// <param name="source">The source document within the project.</param>
+        /// <param name="extension">The file extension to search for</param>
+        /// <param name="searchChildren">Flag that determines if nested project folders should also be searched for files.</param>
+        /// <param name="excludeKnownExternalFolders">Flag that determines if a content filter should be applied.</param>
+        /// <returns>List of documents that meet the criteria.</returns>
+        public static async Task<VsProject> GetCurrentProjectAsync(this VsDocument source)
+        {
+            //Bounds check if no instance of the model is provided returning null.
+            if (source == null) return null;
+
+            //Loading the project system version of the document.
+            var document = source;
+
+            //If the project system version of the document could not be loaded then return null.
+            if (document == null) return null;
+
+            //Models to store information about lookup results.
+            VsProject result = null;
+            VsModel currentModel = document;
+
+            while (result == null)
+            {
+                //Confirming a model was returned otherwise there is no parent project to return, so break out of the while loop.
+                if (currentModel == null) break;
+
+                switch (currentModel.ModelType)
+                {
+                    //switching between each standard model types. loading model data.
+                    case VisualStudioModelType.Project:
+                        result = currentModel as VsProject;
+
+                        break;
+
+                    case VisualStudioModelType.ProjectFolder:
+
+                        currentModel = currentModel is VsProjectFolder projectFolder ? await projectFolder.GetParentAsync() : null;
+                        break;
+
+                    case VisualStudioModelType.Document:
+
+                        currentModel = currentModel is VsDocument documentModel ? await documentModel.GetParentAsync() : null;
+                        break;
+
+                    default:
+                        currentModel = null;
+                        break;
+
+                }
+            }
+
+            //return the project model
+            return result ;
+        }
+
+        /// <summary>
+        /// Returns a list of non-source code documents from VsProject that have a matching extension.
+        /// </summary>
+        /// <param name="source">The source document within the project.</param>
+        /// <param name="extension">The file extension to search for</param>
+        /// <param name="searchChildren">Flag that determines if nested project folders should also be searched for files.</param>
+        /// <param name="excludeKnownExternalFolders">Flag that determines if a content filter should be applied.</param>
+        /// <returns>List of documents that meet the criteria.</returns>
+        public static async Task<VsProject> GetCurrentProjectAsync(this VsProjectFolder source)
+        {
+            //Bounds check if no instance of the model is provided returning null.
+            if (source == null) return null;
+
+            //Models to store information about lookup results.
+            VsProject result = null;
+            VsModel currentModel = source;
+
+            while (result == null)
+            {
+                //Confirming a model was returned otherwise there is no parent project to return, so break out of the while loop.
+                if (currentModel == null) break;
+
+                switch (currentModel.ModelType)
+                {
+                    //switching between each standard model types. loading model data.
+                    case VisualStudioModelType.Project:
+                        result = currentModel as VsProject;
+
+                        break;
+
+                    case VisualStudioModelType.ProjectFolder:
+
+                        currentModel = currentModel is VsProjectFolder projectFolder ? await projectFolder.GetParentAsync() : null;
+                        break;                    
+
+                    default:
+                        currentModel = null;
+                        break;
+
+                }
+            }
+
+            //return the project model
+            return result;
+        }
+
         /// <summary>
         /// Returns a list of non-source code documents from VsProject that have a matching extension.
         /// </summary>

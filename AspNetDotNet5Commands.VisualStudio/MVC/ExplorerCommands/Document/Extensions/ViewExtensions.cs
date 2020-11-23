@@ -1,14 +1,10 @@
-﻿using CodeFactory.DotNet.CSharp;
+﻿using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Extensions;
 using CodeFactory;
 using CodeFactory.VisualStudio;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using AspNetDotNet5Commands.VisualStudio.Common.Extensions;
 
-namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document
+namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Extensions
 {
     /// <summary>
     /// Class that holds extension methods to help with View management.

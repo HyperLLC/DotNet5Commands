@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetDotNet5Commands.VisualStudio.Common.Constants;
-using AspNetDotNet5Commands.VisualStudio.Common.Extensions;
+using AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensions;
 using CodeFactory;
 using CodeFactory.DotNet.CSharp;
 using CodeFactory.Formatting.CSharp;
+using CodeFactory.VisualStudio;
 
-namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.Logic
+namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.Extensions
 {
     /// <summary>
     /// Logic class that manages logic to maintain members in a class
@@ -760,6 +761,52 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.
             return result;
         }
 
+        /// <summary>
+        /// Method that adds all of the missing members to a class.  
+        /// </summary>
+        /// <param name="source">The source VSProjectFolder that this method is extending.</param>
+        /// <returns>VSCSharp Source code with all missing members.</returns>
+        public static async Task<VsCSharpSource> GetMissingMembers(this VsCSharpSource source)
+        {
+            //Get the missing members and the target class or classes they are to be loaded into.
+            var missingMembers = source.SourceMissingInterfaceMembers();
+
+            //Getting the hosting project for the command.
+            var hostingProject = await source.GetHostingProjectAsync();
+
+            //If no hosting project can be found this command should not be executed.
+            if (hostingProject == null) return null;
+
+            //Determining if the project supports the asp.net extensions for the common delivery framework
+            bool supportCDFAspnet = await hostingProject.HasReferenceLibraryAsync(DotNetConstants.CommonDeliveryFrameworkAspNetLibraryName);
+
+            //If the logging abstraction library is loaded then enable logging for members.
+            var enableLogging = true;
+
+            //Bounds checking will be supported for this command
+            bool boundsChecking = true;
+
+            //Async keyword will be used for this command
+            bool supportAsync = true;
+
+            //Process each class missing members 
+            foreach (var missingMember in missingMembers)
+            {
+                //Get the container model that has missing members.
+                var container = missingMember.Key;
+
+                //Confirming the container is a class if not continue
+                if (container.ContainerType != CsContainerType.Class) continue;
+
+                var targetClass = container as CsClass;
+
+                //Adding the missing members
+                await ClassMemberManagement.AddMembersToClassWithCDFSupportAsync(source.SourceCode, targetClass, missingMember.Value, boundsChecking, enableLogging, supportAsync);
+            }
+
+            return source;
+        }
+    
         #endregion
     }
 }

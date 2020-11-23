@@ -1,13 +1,11 @@
-﻿using AspNetDotNet5Commands.VisualStudio.Common.Extensions;
-using CodeFactory.DotNet.CSharp;
-using CodeFactory.Formatting.CSharp;
+﻿using AspNetDotNet5Commands.VisualStudio.Common.Constants;
+using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Extensions;
+using AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensions;
 using CodeFactory.Logging;
 using CodeFactory.VisualStudio;
 using CodeFactory.VisualStudio.SolutionExplorer;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -65,18 +63,23 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.SourceCode
             {
                 var interfaceData = result.SourceCode.Interfaces.FirstOrDefault();
                 var modelName = interfaceData.Name.Substring(1, interfaceData.Name.Length - 1);
-                if (interfaceData == null)
-                {
-                    return;
-                }
+
+                if (interfaceData == null) return;
+
                 var solution = await VisualStudioActions.SolutionActions.GetSolutionAsync();
 
                 //Get the solution projects and create the Model folder if one doesn't exist
                 var SolutionProjects = await solution.GetProjectsAsync(true);
                 VsProjectFolder modelsFolder = await SolutionProjects.FirstOrDefault().CheckAddFolder("Models");
 
+                //Getting the hosting project for the command.
+                var hostingProject = await result.GetHostingProjectAsync();
+
+                //If no hosting project can be found this command should not be executed.
+                if (hostingProject == null) return;
+
                 //Add the new Model file.
-                await modelsFolder.AddDocumentAsync(modelName + ".cs", interfaceData.GenerateModel());                
+                await modelsFolder.AddDocumentAsync(modelName + ".cs", result.SourceCode.Interfaces.FirstOrDefault().GenerateModelFromInterface(await hostingProject.HasReferenceLibraryAsync(DotNetConstants.CommonDeliveryFrameworkAspNetLibraryName)));                
             }
             catch (Exception unhandledError)
             {

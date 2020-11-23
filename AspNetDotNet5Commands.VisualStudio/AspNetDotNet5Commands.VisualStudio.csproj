@@ -58,21 +58,24 @@
     <Compile Include="Common\Constants\DotNetConstants.cs" />
     <Compile Include="Common\Enums\MessageTypeEnum.cs" />
     <Compile Include="Common\Enums\ProcessStatusEnum.cs" />
+    <Compile Include="Common\ExplorerCommands\Document\CountLinesOfCode.cs" />
+    <Compile Include="Common\ExplorerCommands\Folder\CountLinesOfCode.cs" />
+    <Compile Include="Common\ExplorerCommands\Project\CountLinesOfCode.cs" />
     <Compile Include="Common\ExplorerCommands\SourceCode\AddMissingMembers.cs" />
-    <Compile Include="Common\ExplorerCommands\SourceCode\Logic\ClassMemberManagement.cs" />
-    <Compile Include="Common\Extensions\DocumentExtensions.cs" />
-    <Compile Include="Common\Extensions\FolderExtensions.cs" />
-    <Compile Include="Common\Extensions\ClassExtensions.cs" />
-    <Compile Include="Common\Extensions\InterfaceExtensions.cs" />
-    <Compile Include="Common\Extensions\MethodExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\SourceCode\Extensions\ClassMemberManagement.cs" />
+    <Compile Include="Common\ExplorerCommands\Document\Extensions\DocumentExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\Folder\Extensions\FolderExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\SourceCode\Extensions\ClassExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\SourceCode\Extensions\InterfaceExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\SourceCode\Extensions\MethodExtensions.cs" />
     <Compile Include="Common\ExplorerCommands\SourceCode\GenerateInterfaceAndInherit.cs" />
-    <Compile Include="Common\Extensions\NamespaceExtensions.cs" />
-    <Compile Include="Common\Extensions\ProjectExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\SourceCode\Extensions\NamespaceExtensions.cs" />
+    <Compile Include="Common\ExplorerCommands\Project\Extensions\ProjectExtensions.cs" />
     <Compile Include="Common\Models\ViewTemplateList.cs" />
     <Compile Include="Common\Models\ViewTemplateItem.cs" />
-    <Compile Include="MVC\ExplorerCommands\Document\ControllerExtensions.cs" />
-    <Compile Include="MVC\ExplorerCommands\Project\TemplateConfigExtensions.cs" />
-    <Compile Include="MVC\ExplorerCommands\Document\ViewExtensions.cs" />
+    <Compile Include="MVC\ExplorerCommands\Document\Extensions\ControllerExtensions.cs" />
+    <Compile Include="MVC\ExplorerCommands\Project\Extensions\TemplateConfigExtensions.cs" />
+    <Compile Include="MVC\ExplorerCommands\Document\Extensions\ViewExtensions.cs" />
     <Compile Include="MVC\ExplorerCommands\Folder\Dialogs\NewViewDialog.xaml.cs">
       <DependentUpon>NewViewDialog.xaml</DependentUpon>
     </Compile>
@@ -82,8 +85,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\ExplorerCommands\Document\" />
-    <Folder Include="Common\ExplorerCommands\Project\" />
     <Folder Include="Common\ExplorerCommands\Solution\" />
     <Folder Include="MVC\ExplorerCommands\Solution\" />
     <Folder Include="Native\ExplorerCommands\Document\Dialog\" />

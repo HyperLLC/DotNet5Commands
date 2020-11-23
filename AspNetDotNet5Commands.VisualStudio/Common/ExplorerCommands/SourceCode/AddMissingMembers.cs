@@ -1,5 +1,5 @@
 ﻿using AspNetDotNet5Commands.VisualStudio.Common.Constants;
-using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.Logic;
+using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.Extensions;
 using CodeFactory.DotNet.CSharp;
 using CodeFactory.Logging;
 using CodeFactory.VisualStudio;
@@ -108,7 +108,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode
                     var targetClass = container as CsClass;
 
                     //Adding the missing members
-                    await ClassMemberManagement.AddMembersToClassAsync(result.SourceCode, targetClass, missingMember.Value, boundsChecking, enableLogging, supportAsync);
+                    await ClassMemberManagement.AddMembersToClassWithCDFSupportAsync(result.SourceCode, targetClass, missingMember.Value, boundsChecking, enableLogging, supportAsync);
                 }
             }
             catch (Exception unhandledError)

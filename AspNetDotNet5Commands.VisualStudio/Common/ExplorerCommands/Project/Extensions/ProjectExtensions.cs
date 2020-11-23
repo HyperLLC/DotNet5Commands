@@ -1,4 +1,5 @@
-﻿using CodeFactory.DotNet.CSharp;
+﻿using CodeFactory.Document;
+using CodeFactory.DotNet.CSharp;
 using CodeFactory.VisualStudio;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 
-namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
+namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Project.Extensions
 {
     /// <summary>
     /// Class that holds extension methods used to get Visual Studio project details.
@@ -84,9 +85,9 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
         /// <param name="exactMatch">Flag that determines whether we search on equals or contains.</param>
         /// <param name="visualStudioModelType">Defines what type of artifact through Visual Studio we are search for.</param>
         /// <returns>The first document that meets the criteria.</returns>
-        public static async Task<VsModel> FindDocumentWithinProjectAsync(this IReadOnlyList<VsProject> source, string documentName, bool searchChildren, bool exactMatch, VisualStudioModelType visualStudioModelType)
+        public static async Task<VsModel> FindDocumentWithinProjectAsync(this VsProject source, string documentName, bool searchChildren, bool exactMatch, VisualStudioModelType visualStudioModelType)
         {
-            var projectDocuments = await source.FirstOrDefault().GetChildrenAsync(searchChildren);
+            var projectDocuments = await source.GetChildrenAsync(searchChildren);
 
             //Find the first document that meets our criteria where it's not an exact match
             if (!exactMatch)
@@ -97,6 +98,53 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
                 return projectDocuments.FirstOrDefault(c => c.ModelType == visualStudioModelType & c.Name.ToLower().Equals(documentName.ToLower()));
                          
             return null;
+        }
+
+        /// <summary>
+        /// Returns an int representing the number of lines of code within each code file within the source project folder.
+        /// </summary>
+        /// <param name="source">The source VsProject object</param>
+        /// <returns>Returns a count of all children .cshtml or .cs file's lines of code.</returns>
+        public static async Task<int> CountLinesOfCodeAsync(this VsProjectFolder source)
+        {
+            int count = 0;
+            IReadOnlyList<VsModel> codeFiles = await source.GetChildrenAsync(true);
+            IEnumerable<VsModel> children = codeFiles.Where(p => p.ModelType.Equals(VisualStudioModelType.Document) && (p.Name.Contains(".cshtml")) || p.Name.Contains(".cs"));
+            foreach(VsDocument codeFile in children)
+            {
+                IDocumentContent content = await codeFile.GetDocumentContentAsContentAsync();
+                count += content.Count;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Returns an int representing the number of lines of code within each code file within the source project folder.
+        /// </summary>
+        /// <param name="source">The source VsProject object</param>
+        /// <returns>Returns a count of all children .cshtml or .cs file's lines of code.</returns>
+        public static async Task<int> CountLinesOfCodeAsync(this VsDocument source)
+        {
+            var content = await source.GetDocumentContentAsContentAsync();
+            return content.Count();
+        }
+
+        /// <summary>
+        /// Returns an int representing the number of lines of code within each code file within the source project folder.
+        /// </summary>
+        /// <param name="source">The source VsProject object</param>
+        /// <returns>Returns a count of all children .cshtml or .cs file's lines of code.</returns>
+        public static async Task<int> CountLinesOfCodeAsync(this VsProject source)
+        {
+            int count = 0;
+            IReadOnlyList<VsModel> codeFiles = await source.GetChildrenAsync(true);
+            IEnumerable<VsModel> children = codeFiles.Where(p => p.ModelType.Equals(VisualStudioModelType.Document) && (p.Name.Contains(".cshtml")) || p.Name.Contains(".cs"));
+            foreach (VsDocument codeFile in children)
+            {
+                IDocumentContent content = await codeFile.GetDocumentContentAsContentAsync();
+                count += content.Count;
+            }
+            return count;
         }
     }
 }

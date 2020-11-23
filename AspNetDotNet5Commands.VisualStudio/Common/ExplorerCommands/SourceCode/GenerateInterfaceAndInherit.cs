@@ -1,15 +1,16 @@
-﻿using AspNetDotNet5Commands.VisualStudio.Common.Extensions;
+﻿using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Extensions;
+using AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensions;
+using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.Extensions;
 using CodeFactory.DotNet.CSharp;
-using CodeFactory.Formatting.CSharp;
 using CodeFactory.Logging;
 using CodeFactory.VisualStudio;
 using CodeFactory.VisualStudio.SolutionExplorer;
 using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
+using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using AspNetDotNet5Commands.VisualStudio.Common.Constants;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode
@@ -64,24 +65,9 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode
         {
             try
             {
-                var classData = result.SourceCode.Classes.FirstOrDefault();
-                if (classData == null)
-                {
-                    return;
-                }
                 var solution = await VisualStudioActions.SolutionActions.GetSolutionAsync();
-
-                //Get the solution projects and create the interface folder if one doesn't exist
-                var SolutionProjects = await solution.GetProjectsAsync(true);
-                VsProjectFolder interfacesFolder = await SolutionProjects.FirstOrDefault().CheckAddFolder("Interfaces");
-
-                //Add the new interface file.
-                var newInterface = await interfacesFolder.AddDocumentAsync("I" + classData.Name + ".cs", classData.GenerateInterface());
-                
-                //Update Model to Inhert from newly generated Interface
-                var oldInterfaceSignature = $"{classData.Security.ToString().ToLower()} class {classData.Name }";
-                var newInterfaceSignature = $"{classData.Security.ToString().ToLower()} class {classData.Name}: I{classData.Name}";
-                await result.SourceCode.ReplaceAsync(classData.GenerateModel());    
+                await result.InheritInterfaceAndRegenerateModel(solution);
+                //TODOawait result.GetMissingMembers();
             }
             catch (Exception unhandledError)
             {

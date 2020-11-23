@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using AspNetDotNet5Commands.VisualStudio.Common.Constants;
 using System.CodeDom.Compiler;
 
-namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document
+namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Extensions
 {
     /// <summary>
     /// Class that holds extension methods to help with Controller management.

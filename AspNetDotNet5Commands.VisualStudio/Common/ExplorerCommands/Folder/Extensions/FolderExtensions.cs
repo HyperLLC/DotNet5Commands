@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNetDotNet5Commands.VisualStudio.Common.Extensions
+namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Extensions
 {
     /// <summary>
     /// Class that holds extension methods that are used with Folders.
