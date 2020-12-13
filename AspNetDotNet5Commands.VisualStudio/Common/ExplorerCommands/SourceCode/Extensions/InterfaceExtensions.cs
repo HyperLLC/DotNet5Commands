@@ -88,15 +88,11 @@ namespace AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensi
             if (source.Properties.Any(s => s.HasAttributes) || source.Methods.Any(s => s.HasAttributes) || source.Events.Any(s => s.HasAttributes))
                 formatter.AppendCodeLine(0, $"using {DotNetConstants.SystemComponentModelDataAnnotations};");
 
-            //If we support CDF for ASP.NET then add the microsofts logging namespace
-            if (supportCDFAspnet)
-                formatter.AppendCodeLine(0, $"using {DotNetConstants.MicrosoftLoggerNamespace};");
-
             formatter.AppendCodeLine(0, $"using {source.GetRootFromNamespace()}.Interfaces;");
             formatter.AppendCodeLine(0);
             formatter.AppendCodeLine(0, $"namespace {source.GetRootFromNamespace()}.Models");
             formatter.AppendCodeLine(0, "{");
-            formatter.AppendCodeLine(1, $"{source.Security.ToString().ToLower()} class {source.Name}");
+            formatter.AppendCodeLine(1, $"{source.Security.ToString().ToLower()} class {source.Name}:{interfaceName}");
             formatter.AppendCodeLine(1, "{");
             formatter.AppendCodeLine(1);
 
@@ -147,7 +143,7 @@ namespace AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensi
         public static async Task<string> RegenerateModel(this CsClass source, bool supportCDFAspnet)
         {         
             //Based upon whether or not a class is generating the Model or a Model is rebuilding itself, we'll want to remove the interface I-prefix from the source class name
-            string interfaceName = source.HasStrongTypesInGenerics ? $"I{source.Name}<{source.GenericParameters.FormatCSharpGenericSignatureSyntax()}>" : $"I{source.Name}";            
+            string interfaceName = source.HasStrongTypesInGenerics ? $"{source.Name}<{source.GenericParameters.FormatCSharpGenericSignatureSyntax()}>" : $"I{source.Name}";            
            
             var formatter = new SourceFormatter();
 
