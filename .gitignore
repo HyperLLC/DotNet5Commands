@@ -8,3 +8,5 @@
 /CodeFactoryDotNet5WebAppTest/obj
 /AspNetDotNet5Commands.VisualStudio/.vs/AspNetDotNet5Commands.VisualStudio
 /CodeFactoryDotNet5WebAppTest/bin/Release/net5.0
+/CodeFactoryDotNet5WebAppTest/TestCodeFactoryDotNet5WebApp.csproj.user
+*.sln

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AspNetDotNet5Commands.VisualStudio.cfx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommonDeliveryFramework" Version="1.0.2191" />
   </ItemGroup>
 
