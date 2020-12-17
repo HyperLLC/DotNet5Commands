@@ -16,7 +16,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Ex
     public static class DocumentExtensions
     {
         /// <summary>
-        /// Returns a list of non-source code documents from VsProject that have a matching extension.
+        /// Returns a VsProject object referencing the project in which this source document exist..
         /// </summary>
         /// <param name="source">The source document within the project.</param>
         /// <param name="extension">The file extension to search for</param>
@@ -73,7 +73,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Ex
         }
 
         /// <summary>
-        /// Returns a list of non-source code documents from VsProject that have a matching extension.
+        /// Returns a VsProject object referencing the project in which this CSharp source code resides.
         /// </summary>
         /// <param name="source">The CSharp source document within the project.</param>
         /// <param name="extension">The file extension to search for</param>
@@ -130,7 +130,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Ex
         }
 
         /// <summary>
-        /// Returns a list of non-source code documents from VsProject that have a matching extension.
+        /// Gets a VsProject object referencing the project in which this folder exist.
         /// </summary>
         /// <param name="source">The source document within the project.</param>
         /// <param name="extension">The file extension to search for</param>
@@ -176,7 +176,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Ex
         }
 
         /// <summary>
-        /// Returns a list of non-source code documents from VsProject that have a matching extension.
+        /// Returns a list of non-source code documents from VsProject that have a matching file extension.
         /// </summary>
         /// <param name="source">The source visual studio project to search.</param>
         /// <param name="extension">The file extension to search for</param>

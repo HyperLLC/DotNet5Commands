@@ -38,10 +38,10 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Exte
                        .Cast<VsProjectFolder>()
                        .FirstOrDefault()
                    ?? await source.AddProjectFolderAsync(folderName);
-        }                    
+        }
 
         /// <summary>
-        /// Gets the immediate VsProject Folder objects that this Document object lives in.  
+        /// Gets a list of VSProjectFolders parent folders relative to a document.  
         /// This list is in reverse order from leaf-to-trunk. An empty list is returned if the document lives in the root of the project.
         /// </summary>
         /// <param name="sourceDocument">The visual studio document to search for.</param>
@@ -96,7 +96,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Exte
         }
 
         /// <summary>
-        /// Confirms the target project folder exists in the project, if not will create it.
+        /// Confirms the target project sub folder exists in the project folder.  If not, it will create it within the sourced project folder.
         /// </summary>
         /// <param name="projectFolder">The source project folder to check.</param>
         /// <param name="folderName">The name of the folder to create or return if it exists.</param>

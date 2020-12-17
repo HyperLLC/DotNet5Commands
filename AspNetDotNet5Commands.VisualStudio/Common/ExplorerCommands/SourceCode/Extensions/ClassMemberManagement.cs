@@ -230,7 +230,7 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode.
         }
 
         /// <summary>
-        /// Implements a default event implementation for a missing member.
+        /// Implements a default method implementation for a missing member.
         /// </summary>
         /// <param name="memberData">Event data to be loaded.</param>
         /// <param name="manager">The namespace manager to use for namespace management with type declarations.</param>
