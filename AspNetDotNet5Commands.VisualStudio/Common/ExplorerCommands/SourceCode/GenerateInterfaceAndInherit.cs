@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using AspNetDotNet5Commands.VisualStudio.Common.Constants;
 using System.Collections.Generic;
 using System.Windows;
+using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Extensions;
 
 namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode
 {
@@ -65,8 +66,8 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.SourceCode
         {
             try
             {
-                var solution = await VisualStudioActions.SolutionActions.GetSolutionAsync();
-                await result.InheritInterfaceAndRegenerateModel(solution);
+                var projectDetails = await result.GetCurrentProjectAsync();
+                await result.InheritInterfaceAndRegenerateModel(projectDetails);
                 //TODOawait result.GetMissingMembers();
             }
             catch (Exception unhandledError)

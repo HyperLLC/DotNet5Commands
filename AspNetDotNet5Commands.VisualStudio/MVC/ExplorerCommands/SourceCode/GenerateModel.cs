@@ -1,4 +1,5 @@
 ﻿using AspNetDotNet5Commands.VisualStudio.Common.Constants;
+using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Document.Extensions;
 using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Extensions;
 using AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensions;
 using CodeFactory.Logging;
@@ -69,8 +70,8 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.SourceCode
                 var solution = await VisualStudioActions.SolutionActions.GetSolutionAsync();
 
                 //Get the solution projects and create the Model folder if one doesn't exist
-                var SolutionProjects = await solution.GetProjectsAsync(true);
-                VsProjectFolder modelsFolder = await SolutionProjects.FirstOrDefault().CheckAddFolder("Models");
+                var currentProject = await result.GetCurrentProjectAsync();
+                VsProjectFolder modelsFolder = await currentProject.CheckAddFolder("Models");
 
                 //Getting the hosting project for the command.
                 var hostingProject = await result.GetHostingProjectAsync();

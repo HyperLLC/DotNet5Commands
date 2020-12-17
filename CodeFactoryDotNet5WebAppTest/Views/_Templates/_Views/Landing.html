@@ -1,7 +1,22 @@
 ﻿<!-- ==================== Start Header Area  ========================= -->
 <header class="header-area bg-color2">
     <div class="container">
-        @await Html.PartialAsync("~/Views/Shared/_Navigation.cshtml")
+        <div class="header-nav">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header-logo">
+                        <a asp-area="" asp-controller="Home" asp-action="Main">><img src="~/images/Hyper_logo.svg" alt="header brand"> | Code</a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <nav class="app-navbar">
+                        <ul class="slimmenu main-menu">
+                            @await Html.PartialAsync("~/Views/Shared/_Navigation.cshtml")
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
         <div class="header-banner">
             <div class="row">
                 <div class="col-md-8">

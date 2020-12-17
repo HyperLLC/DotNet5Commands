@@ -184,15 +184,14 @@ namespace AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensi
             return returnSource;
         }
 
-        public static async Task<VsCSharpSource> InheritInterfaceAndRegenerateModel(this VsCSharpSource source, VsSolution solution)
+        public static async Task<VsCSharpSource> InheritInterfaceAndRegenerateModel(this VsCSharpSource source, VsProject currentProject)
         {
             var classData = source.SourceCode.Classes.FirstOrDefault();
 
             if (classData == null) return null;
 
             //Get the solution projects and create the interface folder if one doesn't exist
-            var SolutionProjects = await solution.GetProjectsAsync(true);
-            VsProjectFolder interfacesFolder = await SolutionProjects.FirstOrDefault().CheckAddFolder("Interfaces");            
+            VsProjectFolder interfacesFolder = await currentProject.CheckAddFolder("Interfaces");            
 
             //Add the new interface file.
             await interfacesFolder.AddDocumentAsync("I" + classData.Name + ".cs", classData.GenerateInterface());
