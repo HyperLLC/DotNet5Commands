@@ -3,11 +3,11 @@ CodeFactory Commands library that provides a reference implementation of automat
 
 ## Quick Video Links
 Before you get started, it might be helpful to watch the following short videos (LINKS COMING BY 12/21/2020):
-  - Using CodeFactory Commands to Autogenerate .Net 5 Code (Demo) 
+  - [Using CodeFactory Commands to Autogenerate .Net 5 Code (Demo)]() 
     - Quick video demonstrating the benefits of using these commands and how quickly you can spin up a new .Net 5 Public facing, real-world web application in just minutes.
-  - Getting Started with CodeFactory
+  - [Getting Started with CodeFactory]()
     - Quick video on getting your environment setup using a trial license of CodeFactory and using these .Net 5 Commands. 
-  - Creating Your First CodeFactory Command 101
+  - [Creating Your First CodeFactory Command 101]()
     - Quick video on creating a simple, real-world command that you can use in your every day development routine.
     
 ## New to CodeFactory?
@@ -47,6 +47,79 @@ It's probably confusing to know exactly what we mean by Commands, so let me expl
   - **Enabled**: Anytime you right-click on an existing View cshtml file.
   - **Action Description**:  This command will prompt a dialog box asking you to select a Partial View Template, give it a name, and then select whether or not you want a reference link to this partial view section included within the navigation bar in the header. This command will create a new Partial view (we call them Sections for conversational purposes) within the root folder of the selected View.  it will then add a new ActionResult to the corresponding controller associated to the selected view.  It will also create the new Partial View cshtml file, and add it to the _Navigation.cshml if you've told it to.
 
+## Extension Methods Included:
+Here is a list of additional extension methods we've written for you on top of the existing CodeFactory SDK and Automation Templates.  I've grouped these by heirarchy in the Solution Explorer:
+  - Visual Studio Project (VsProject)
+    - **AddRazorViewAsync()** - Method that adds a new razor view to the selected folder.
+    - **CheckAddFolder()** - Used to check a project model for the existence of a folder at the root level of a given name.  If the folder is missing - create it.
+    - **FindClassAsync()** - Extension method that searches a project for a C# class that exists in one of the projects documents.
+    - **FindDocumentWithinProjectAsync()** - Returns VsModel object from the VsProject that has a matching name.
+    - **GetClassesThatImplementInterfaceAsync()** - Gets target classes that implement a target interface. It will skip classes that implement Page or HttpApplication.
+    - **GetDocumentsWithExtensionAsync()** - Returns a list of non-source code documents from VsProject that have a matching file extension.    
+    - **LoadAllProjectData()** - Returns a list of VsModels tree that represent the entire Visual Studio Project.
+    
+  - Visual Studio Project Folder (VsProjectFolder)
+    - **AddControllerAsync()** - Method that adds a new controller file to the project within the Contollers Folder.
+    - **CheckAddFolder()** - Confirms the target project sub folder exists in the project folder.  If not, it will create it within the sourced project folder.
+    - **GetConfigTemplateFile()** - 
+    - **GetCurrentProjectAsync()** - Gets a VsProject object referencing the project in which this folder exist.
+    
+  - Visual Studio Document (VsDocument)
+    - **AddPartialClassToViewAsync()** - Method that appends auto-generated default ViewData[] and @page attributes to your razor view.
+    - **AddPartialViewNavigation()** - Method that appends a list item to the navigation file for a partial view.
+    - **AddViewDataAttributesAsync()** - Method that appends auto-generated default ViewData[] and @page attributes to your razor view.
+    - **CopyProjectFile()** - Copies a VsDocument from the source location to a destination location.
+    - **GetParentFolders()** - Gets a list of VSProjectFolders parent folders relative to a document.
+    - **GetCurrentProjectAsync()** - Returns a VsProject object referencing the project in which this source document exist.
+  
+  - Visual Studio CSharp SourceCode (VsCSharpSource)
+    - **GetCurrentProjectAsync()** - Returns a VsProject object referencing the project in which this CSharp source code resides.
+    
+  - CSharp SourceCode (CsSource)
+    - **AddActionResultMethodToControllerAsync()** - Method that generates an ActionResult Method and Adds it to the list of class Members within your source controller.
+    - **AddMembersToClassAsync()** - Adds the missing members to a target class.
+    - **AddMemberstoClassWithCDFSupportAsync()** - Adds the missing members to a target class, that support the common delivery framework implementation.
+    - **GenerateIActionResultSourceCode()** - Method that auto-generates a string-formatted representation of the ActionResult Method.
+    
+  - Visual Studio Model (VsModel)
+    - **FindClass()** - Extension method that searches a list of project models for a C# class that exists in one of the projects documents.
+    - **GetClassesThatImplementInterface()** - Gets target classes that implement a target interface. It will skip classes that implement Page or HttpApplication.
+    - **GetClassesThatInheritBase()** - Extension method that searches C# source code files for a base class inheritance.
+    - **GetDocumentsWithExtension()** - Returns a list of non-source code documents from VsProject that have a matching file extension.
+    - **GetSourceCodeDocumentsAsync()** - Gets a list of the c# source code files from a target provided lists.
+    
+  - CSharp Container (CsContainer)
+    - **GetRootFromNamespace()** - Gets the root of any namespace.
+    
+  - CSharp Class (CsClass)
+    - **AddMicrosoftExtensionsLoggerFieldAsync()** - Extension method that determines if the logger field is implemented in the class. If it exists will return the provided source. Otherwise will add the logging namespace and the logger field.
+    - **GenerateInterface()** - Generates a model class based-upon a CsClass sourced model.
+    - **HasMicrosoftExtensionsLoggerField()** - Extension method that determines if the class implements a logger field that supports extensions logging from Microsoft.
+    - **IsController()** - Helper method that confirms the class model does not implement a controller base class.
+    
+  - CSharp Method (CsMethod)
+    - **CreateInterfaceDefinition()** - Creates a CSharp formatted interface Method Declaration.
+    - **FormatMemberMethod()** - Implements a default method implementation for a missing member.
+    - **IsControllerAction()** - Helper method that will confirm the method is a controller action.
+    - **MethodContent()** - Gets the syntax within the body of a Method.
+  
+  - CSharp Propert (CsProperty)
+    - **CreateInterfaceDefinition()** - Creates a CSharp formatted interface Property Declaration.
+    - **FormatMemberProperty()** - Implements a default property implementation for a missing member.
+    
+  - CSharp Event (CsEvent)
+    - **CreateInterfaceDefinition()** - Creates a CSharp formatted interface Event Declaration.
+    - **FormatMemberEvent()** - Implements a default event implementation for a missing member.
+    
+  - CSharp Interface (CsInterface)
+    - **GenerateModelFromInterface()** - Generates a model from a CsInterface Class with CDF support.
+    
+  - Generic Source (string)
+    - **RemoveInitialLineBreak()** - This is a temporary hack, but visual studio puts in one initial line break each time we generate new code and try to inject it into the body of a code file.  This helper method removes that for you and it can be called upon any generated string object.
+    
+    
+    
+    
 ## Interested in Other Projects?
 The CodeFactory Team has other [community projects](https://github.com/CodeFactoryLLC) you can check out!
 
