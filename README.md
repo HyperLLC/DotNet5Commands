@@ -47,3 +47,10 @@ It's probably confusing to know exactly what we mean by Commands, so let me expl
   - **Enabled**: Anytime you right-click on an existing View cshtml file.
   - **Action Description**:  This command will prompt a dialog box asking you to select a Partial View Template, give it a name, and then select whether or not you want a reference link to this partial view section included within the navigation bar in the header. This command will create a new Partial view (we call them Sections for conversational purposes) within the root folder of the selected View.  it will then add a new ActionResult to the corresponding controller associated to the selected view.  It will also create the new Partial View cshtml file, and add it to the _Navigation.cshml if you've told it to.
 
+## Interested in Other Projects?
+The CodeFactory Team has other [community projects](https://github.com/CodeFactoryLLC) you can check out!
+
+## Trying to Migrate your old WebForms Project(s) to Blazor?
+We are working on a Webforms to .Net 5 automation project using the same tenants you're seeing within this project; but if you're looking to move straight to Blazor, check out these links below:
+  - [CodeFactory WebForms to Blazor Project](https://github.com/CodeFactoryLLC/WebForms2BlazorServer)
+  - [Jeff Fritz Blazor Components](https://www.nuget.org/packages/Fritz.BlazorWebFormsComponents/)
