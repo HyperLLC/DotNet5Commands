@@ -87,7 +87,8 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document
                     //Display the dialog.
                     await VisualStudioActions.UserInterfaceActions.ShowDialogWindowAsync(newViewDialog);
                     ViewTemplateItem selectedViewTemplate = newViewDialog.SelectedViewTemplate;
-                    var viewName = newViewDialog.ViewTitle + "Section";
+                    var viewName = newViewDialog.ViewTitle;
+                    var addToNavigation = newViewDialog.AddToNavigation;
 
                     if (viewName != null && selectedViewTemplate != null)
                     {
@@ -97,6 +98,12 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document
                             //Since we want all of our views to reside in their separate view folders with a separate controllers, check to see if we're at the root of the Views folder.
                             if (result.Name.ToLower().Contains(".cshtml"))
                                 await result.AddRazorViewAsync(viewTemplate, viewName, false, true);
+
+                            //Add partial view to navigation file
+                            if (addToNavigation == true && await projectDetails.FindDocumentWithinProjectAsync("_Navigation.cshtml", true, true, VisualStudioModelType.Document) is VsDocument navigationFile)
+                            {
+                                navigationFile.AddPartialViewNavigation(viewName);
+                            }
                         }
 
                         //Crawl the tree and find the matching controller based-on the naming convention of your parent folder.            
@@ -105,7 +112,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document
                         if (await projectDetails.FindDocumentWithinProjectAsync(parentFolder.Name.ToLower() + "controller.cs", true, true, VisualStudioModelType.Document) is VsDocument controllerModel)
                         {
                             CsSource controllerClass = await controllerModel.GetCSharpSourceModelAsync();
-                            await controllerClass.AddActionResultMethodToControllerAsync(viewName);
+                            await controllerClass.AddActionResultMethodToControllerAsync(viewName+"Section");
                         }
                     }
                 }                

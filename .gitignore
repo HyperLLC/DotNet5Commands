@@ -10,3 +10,5 @@
 /CodeFactoryDotNet5WebAppTest/bin/Release/net5.0
 /CodeFactoryDotNet5WebAppTest/TestCodeFactoryDotNet5WebApp.csproj.user
 *.sln
+/AspNetDotNet5Commands.VisualStudio/CodeFactory/a8409cb0-022d-417f-b188-84efb71ddb59
+/CodeFactoryDotNet5WebAppTest/CodeFactory/8fd19356-278b-479b-8b02-cd0dd2356ced

@@ -31,6 +31,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder.Dialogs
         private MessageTypeEnum _dialogMessageType = MessageTypeEnum.Information;
         private ViewTemplateItem _selectedViewTemplate = null;
         private string _viewTitle = null;
+        private bool? _addToNavigation = false;
 
         /// <summary>
         /// Creates an instance of the user control.
@@ -71,6 +72,13 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder.Dialogs
             get { return _viewTitle; }
             set { _viewTitle = value; }
         }
+
+        // Whether or not to add the view to the _Navigation component.
+        public bool? AddToNavigation
+        {
+            get { return _addToNavigation; }
+            set { _addToNavigation = value; }
+        }
         #endregion
 
         #region Dependency Properties
@@ -108,6 +116,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder.Dialogs
         {
             SelectedViewTemplate = TemplatesCombo.SelectedItem as ViewTemplateItem;
             ViewTitle = ViewTitleTextBox.Text;
+            AddToNavigation = AddToNavigationCheckBox.IsChecked;
             this.Close();
         }
         #endregion

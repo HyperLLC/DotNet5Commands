@@ -52,8 +52,11 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
             VsProjectFolder parentFolder = parentFolders.FirstOrDefault();
 
             //Add the new view file in the same directory as the selected view.
-            VsDocument viewDocument = await parentFolder.AddDocumentAsync(viewName + ".cshtml", await viewTemplateFile.GetDocumentContentAsStringAsync());
+            VsDocument viewDocument = await parentFolder.AddDocumentAsync(viewName + "Section.cshtml", await viewTemplateFile.GetDocumentContentAsStringAsync());
             
+            //Add the ViewData for the partial so that the partials have an associated html id
+            await viewDocument.AddContentToBeginningAsync(GenerateViewDataAttributes("SectionName", viewName + "Section"));
+
             //Add the partial class to the source razor view.
             await source.AddPartialClassToViewAsync(viewName, parentFolder.Name);
 
@@ -67,10 +70,32 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// <param name="viewName">The target name of the razor View you want to use in your ViewData[] definition.</param>
         public static async Task<VsDocument> AddPartialClassToViewAsync(this VsDocument source, string viewName, string parentFolder)
         {
-            string markup = $"\r\n@await Html.PartialAsync(\"~/Views/{parentFolder}/{viewName}.cshtml\")";
+            string markup = $"\r\n@await Html.PartialAsync(\"~/Views/{parentFolder}/{viewName}Section.cshtml\")";
             await source.AddContentToEndAsync(markup);
             return source;
-        }        
+        }
+
+        /// <summary>
+        /// Method that appends a list item to the navigation file for a partial view.
+        /// </summary>
+        /// <param name="source">The source navigation.cshtml document.</param>
+        /// <param name="viewName">The target name of the partial razor View you want to add to the navigation.</param>
+        public static async void AddPartialViewNavigation(this VsDocument source, string viewName)
+        {
+            string markup = $"\r\n<li><a href = \"#{viewName}Section\" class=\"js-scroll-trigger\">{viewName}</a></li>";
+            await source.AddContentToEndAsync(markup);
+        }
+
+        /// <summary>
+        /// Method that appends a list item to the navigation file for a view.
+        /// </summary>
+        /// <param name="source">The source navigation.cshtml document.</param>
+        /// <param name="viewName">The target name of the razor View you want to add to the navigation.</param>
+        public static async void AddViewNavigation(this VsDocument source, string viewName)
+        {            
+            string markup = $"\r\n<li><a class=\"navbar - brand\" asp-controller=\"{viewName}\" asp-action=\"{viewName}\">{viewName}</a></li>";
+            await source.AddContentToEndAsync(markup);
+        }
 
         /// <summary>
         /// Method that appends auto-generated default ViewData[] and @page attributes to your razor view.
@@ -78,7 +103,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// /// <param name="viewName">The target name of the razor View you want to use in your ViewData[] definition.</param>
         public static async Task<VsDocument> AddViewDataAttributesAsync(this VsDocument source, string viewName)
         {
-            await source.AddContentToBeginningAsync(GenerateViewDataAttributes(viewName));
+            await source.AddContentToBeginningAsync(GenerateViewDataAttributes("Title", viewName));
             return source;
         }
 
@@ -86,12 +111,11 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// Helper Method that auto-generates the razor view markup that defines a default ViewData[]
         /// </summary>
         /// <param name="viewName">The target name of the razor View you want to associate with the ViewData[] attribute.</param>
-        public static string GenerateViewDataAttributes(string viewName)
+        public static string GenerateViewDataAttributes(string viewDataName, string viewName)
         {
             var formatter = new SourceFormatter();
-            formatter.AppendCodeLine(0, "@page");
             formatter.AppendCodeLine(0, "@{");
-            formatter.AppendCodeLine(1, $"ViewData[\"Title\"] = \"{viewName}\";");
+            formatter.AppendCodeLine(1, $"ViewData[\"{viewDataName}\"] = \"{viewName}\";");
             formatter.AppendCodeLine(0, "}");
             formatter.AppendCodeLine(0);
             return formatter.ReturnSource();

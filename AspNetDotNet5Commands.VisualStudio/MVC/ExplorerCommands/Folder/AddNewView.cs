@@ -87,6 +87,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
                     await VisualStudioActions.UserInterfaceActions.ShowDialogWindowAsync(newViewDialog);
                     ViewTemplateItem selectedViewTemplate = newViewDialog.SelectedViewTemplate;
                     var viewName = newViewDialog.ViewTitle;
+                    var addToNavigation = newViewDialog.AddToNavigationCheckBox.IsChecked;
 
                     if (viewName != null && selectedViewTemplate != null)
                     {
@@ -96,6 +97,12 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
                             //Since we want all of our views to reside in their separate view folders with a separate controllers, check to see if we're at the root of the Views folder.
                             if (result.Name.ToLower().Equals("views"))
                                 await result.AddRazorViewAsync(viewTemplate, viewName, false, true);
+
+                            //Add view to navigation file
+                            if (addToNavigation == true && await projectDetails.FindDocumentWithinProjectAsync("_Navigation.cshtml", true, true, VisualStudioModelType.Document) is VsDocument navigationFile)
+                            {
+                                navigationFile.AddViewNavigation(viewName);
+                            }
                         }
 
                         //Check to make sure we got everything from the dialog and then go create the corresponding controller              
