@@ -1,6 +1,14 @@
 # DotNet5Commands
 CodeFactory Commands library that provides a reference implementation of automation for ASP.Net .Net 5 projects. You can use this commands library to automate the code generation of the initial plumbing code for your views, partial views, models, interfaces, and navigation structure within an .Net 5 ASP.NET MVC Web Application.  The best thing about this concept is that all of your plumbing and project artifacts are generated the same way EVERY time!
 
+Before you get started, it might be helpful to watch the following short videos (LINKS COMING BY 12/21/2020):
+  - Using CodeFactory Commands to Autogenerate .Net 5 Code (Demo) 
+    - Quick video demonstrating the benefits of using these commands and how quickly you can spin up a new .Net 5 Public facing, real-world web application in just minutes.
+  - Getting Started with CodeFactory
+    - Quick video on getting your environment setup using a trial license of CodeFactory and using these .Net 5 Commands. 
+  - Creating Your First CodeFactory Command 101
+    - Quick video on creating a simple, real-world command that you can use in your every day development routine.
+    
 ## New to CodeFactory?
 In the simplest terms, CodeFactory is a real time software factory that is triggered from inside Visual Studio during the design and construction of software. CodeFactory allows for development staff to automate repetitive development tasks that take up developer’s time.
 
