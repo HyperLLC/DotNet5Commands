@@ -37,7 +37,7 @@ It's probably confusing to know exactly what we mean by Commands, so let me expl
   
 - Command: Count Lines of Code
   - **Enabled**: Anytime you right-click on the Project, a Folder, a .cs Document, or a .cshtml Document.
-  - **Action Description**:  In creating demo-code for this reference implementation, we quickly realized that you can't simply right-click on a file and count the lines of code, to see how many lines of code we've generated within a single session.  Within VS Code, you have an action to count lines of code, but not within Visual Studio.  So when you find yourself in a situation where Microsoft is lacking something you want, you can not go build any command that fits your needs.
+  - **Action Description**:  In creating demo-code for this reference implementation, we quickly realized that you can't simply right-click on a file and count the lines of code, to see how many lines of code we've generated within a single session.  Within VS Code, you have an action to count lines of code, but not within Visual Studio.  So when you find yourself in a situation where Microsoft is lacking something you want, you can use CodeFactory to go build any command that fits your needs. Problem Solved!
   
 - Command: Add New View
   - **Enabled**: Anytime you right-click on the Views Folder.
