@@ -127,3 +127,4 @@ The CodeFactory Team has other [community projects](https://github.com/CodeFacto
 We are working on a Webforms to .Net 5 automation project using the same tenants you're seeing within this project; but if you're looking to move straight to Blazor, check out these links below:
   - [CodeFactory WebForms to Blazor Project](https://github.com/CodeFactoryLLC/WebForms2BlazorServer)
   - [Jeff Fritz Blazor Components](https://www.nuget.org/packages/Fritz.BlazorWebFormsComponents/)
+  - [Jeff Fritz - Getting Started: Building Custom CodeFactory Dialogs](https://www.youtube.com/watch?v=-8_V78IyMLw&feature=youtu.be)
