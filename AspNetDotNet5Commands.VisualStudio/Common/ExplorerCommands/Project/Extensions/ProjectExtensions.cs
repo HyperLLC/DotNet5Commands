@@ -146,5 +146,34 @@ namespace AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Project.Ext
             }
             return count;
         }
+
+        /// <summary>
+        /// Returns an int representing the number of lines of code within each code file within the source project folder.
+        /// </summary>
+        /// <param name="source">The source VsProject object</param>
+        /// <returns>Returns a count of all children .cshtml or .cs file's lines of code.</returns>
+        public static async Task<IEnumerable<CsClass>> GetModelsList(this VsProject source)
+        {
+            List<CsClass> models = new List<CsClass>();
+            IReadOnlyList<VsModel> codeFiles = await source.GetChildrenAsync(true);
+            List<VsModel> children = new List<VsModel>(codeFiles.Where(p => p.Name.Contains(".cs") && !p.Name.Contains(".css") && !p.Name.Contains(".cshtml")));     
+            
+            foreach (VsDocument codeFile in children)
+            {
+                CsSource csFile = await codeFile.GetCSharpSourceModelAsync();
+
+                if (csFile.ModelType == CsModelType.Source && csFile.Classes.Count > 0)
+                {
+                    foreach (CsClass classDetails in csFile.Classes)
+                    {
+                        if (classDetails.Namespace.Contains(".Models") && !classDetails.InheritedInterfaces.Count.Equals(0))
+                        {         
+                            models.Add(classDetails);
+                        }
+                    }
+                }                
+            }
+            return models;
+        }
     }
 }

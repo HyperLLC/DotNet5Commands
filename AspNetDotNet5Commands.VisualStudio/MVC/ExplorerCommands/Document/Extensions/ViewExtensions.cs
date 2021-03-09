@@ -1,5 +1,6 @@
 ﻿using AspNetDotNet5Commands.VisualStudio.Common.ExplorerCommands.Folder.Extensions;
 using CodeFactory;
+using CodeFactory.DotNet.CSharp;
 using CodeFactory.VisualStudio;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// <param name="viewName">The target name of the razor View you want to create.</param>
         /// <param name="generateModel">Boolean to dictate whether or not to auto-generate a default razor view @model with corresponding model and interface files.</param>
         /// <param name="generateViewData">Boolean to dictate whether or not to auto-generate a default razor view ViewData["Title"] attribute.</param>
-        public static async Task<VsDocument> AddRazorViewAsync(this VsProjectFolder source, VsDocument viewTemplateFile, string viewName, bool generateModel, bool generateViewData)
+        public static async Task<VsDocument> AddRazorViewAsync(this VsProjectFolder source, VsDocument viewTemplateFile, string viewName, bool generateModel, bool generateViewData, CsClass modelBinding)
         {
             //Create the new view containing folder
             VsProjectFolder newViewFolder = await source.CheckAddFolder(viewName);
@@ -32,7 +33,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
 
             //Prepend the ViewData[] Attribute(s)
             if (generateViewData)
-                viewDocument = await viewDocument.AddViewDataAttributesAsync(viewName);
+                viewDocument = await viewDocument.AddViewDataAttributesAsync(viewName, modelBinding);
 
             return viewDocument;            
         }
@@ -101,10 +102,25 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// Method that appends auto-generated default ViewData[] and @page attributes to your razor view.
         /// </summary>
         /// /// <param name="viewName">The target name of the razor View you want to use in your ViewData[] definition.</param>
-        public static async Task<VsDocument> AddViewDataAttributesAsync(this VsDocument source, string viewName)
+        public static async Task<VsDocument> AddViewDataAttributesAsync(this VsDocument source, string viewName, CsClass model)
         {
             await source.AddContentToBeginningAsync(GenerateViewDataAttributes("Title", viewName));
+            
+            if(model != null)
+                await source.AddContentToBeginningAsync(GenerateModelDataAttributes(model));
+
             return source;
+        }
+
+        /// <summary>
+        /// Helper Method that auto-generates the razor view markup that defines a default Model Binding.
+        /// </summary>
+        /// <param name="viewName">The target name of the razor View you want to associate with the Model Binding attribute.</param>
+        public static string GenerateModelDataAttributes(CsClass model)
+        {
+            var formatter = new SourceFormatter();
+            formatter.AppendCodeLine(0, "@Model "+ model.Namespace + "." + model.Name);
+            return formatter.ReturnSource();
         }
 
         /// <summary>

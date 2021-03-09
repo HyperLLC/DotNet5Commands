@@ -81,18 +81,19 @@ namespace AspNetDotNet5Commands.VisualStudio.ExplorerCommands.SourceCode.Extensi
         public static string GenerateModelFromInterface(this CsInterface source, bool supportCDFAspnet)
         {
             //Based upon whether or not a class is generating the Model or a Model is rebuilding itself, we'll want to remove the interface I-prefix from the source class name
-            string interfaceName = source.HasStrongTypesInGenerics ? $"I{source.Name}<{source.GenericParameters.FormatCSharpGenericSignatureSyntax()}>" : $"I{source.Name}";
+            string modelName = source.Name.Substring(1, source.Name.Length - 1);
+            string interfaceName = source.HasStrongTypesInGenerics ? $"{source.Name}<{source.GenericParameters.FormatCSharpGenericSignatureSyntax()}>" : $"{source.Name}";
             var formatter = new SourceFormatter();
 
             // Check to see if we have any defined attributes, if so, include the DataAnnotations namespace.
             if (source.Properties.Any(s => s.HasAttributes) || source.Methods.Any(s => s.HasAttributes) || source.Events.Any(s => s.HasAttributes))
                 formatter.AppendCodeLine(0, $"using {DotNetConstants.SystemComponentModelDataAnnotations};");
-
+            formatter.AppendCodeLine(0, $"using System;");
             formatter.AppendCodeLine(0, $"using {source.GetRootFromNamespace()}.Interfaces;");
             formatter.AppendCodeLine(0);
             formatter.AppendCodeLine(0, $"namespace {source.GetRootFromNamespace()}.Models");
             formatter.AppendCodeLine(0, "{");
-            formatter.AppendCodeLine(1, $"{source.Security.ToString().ToLower()} class {source.Name}:{interfaceName}");
+            formatter.AppendCodeLine(1, $"{source.Security.ToString().ToLower()} class {modelName}: {interfaceName}");
             formatter.AppendCodeLine(1, "{");
             formatter.AppendCodeLine(1);
 

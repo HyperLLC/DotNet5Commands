@@ -82,12 +82,14 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
 
                     //Pass the view list config to the dialog
                     newViewDialog.ViewList = JsonConvert.DeserializeObject<ViewTemplateList>(jsonString).ViewTemplates;
+                    newViewDialog.ModelList = await projectDetails.GetModelsList();
 
                     //Display the dialog                
                     await VisualStudioActions.UserInterfaceActions.ShowDialogWindowAsync(newViewDialog);
                     ViewTemplateItem selectedViewTemplate = newViewDialog.SelectedViewTemplate;
                     var viewName = newViewDialog.ViewTitle;
                     var addToNavigation = newViewDialog.AddToNavigationCheckBox.IsChecked;
+                    CsClass modelName = newViewDialog.SelectedModel;
 
                     if (viewName != null && selectedViewTemplate != null)
                     {
@@ -96,7 +98,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
                         {
                             //Since we want all of our views to reside in their separate view folders with a separate controllers, check to see if we're at the root of the Views folder.
                             if (result.Name.ToLower().Equals("views"))
-                                await result.AddRazorViewAsync(viewTemplate, viewName, false, true);
+                                await result.AddRazorViewAsync(viewTemplate, viewName, false, true, modelName);
 
                             //Add view to navigation file
                             if (addToNavigation == true && await projectDetails.FindDocumentWithinProjectAsync("_Navigation.cshtml", true, true, VisualStudioModelType.Document) is VsDocument navigationFile)
@@ -110,7 +112,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Folder
                         {
                             //Add the controller class
                             CsSource controllerSourceCode = await controllerFolder.AddControllerAsync(viewName + "Controller", projectDetails.Name);
-                            await controllerSourceCode.AddActionResultMethodToControllerAsync(viewName);
+                            await controllerSourceCode.AddActionResultMethodToControllerAsync(viewName, modelName);
                         }
                     }
                 }                      

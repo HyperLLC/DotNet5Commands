@@ -112,7 +112,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document
                         if (await projectDetails.FindDocumentWithinProjectAsync(parentFolder.Name.ToLower() + "controller.cs", true, true, VisualStudioModelType.Document) is VsDocument controllerModel)
                         {
                             CsSource controllerClass = await controllerModel.GetCSharpSourceModelAsync();
-                            await controllerClass.AddActionResultMethodToControllerAsync(viewName+"Section");
+                            await controllerClass.AddActionResultMethodToControllerAsync(viewName+"Section", null);
                         }
                     }
                 }                

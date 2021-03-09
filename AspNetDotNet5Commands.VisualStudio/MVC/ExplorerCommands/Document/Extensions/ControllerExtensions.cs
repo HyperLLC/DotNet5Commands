@@ -36,9 +36,9 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// <param name="source">The CsSource Controller object your referencing.</param>
         /// <param name="actionName">The string ActionName to be used when auto-generating this method code.</param>
         /// <returns>CsSource that contains the newly generated code snippet for the ActionResult Method</returns>
-        public static async Task<CsSource> AddActionResultMethodToControllerAsync(this CsSource source, string actionName)
+        public static async Task<CsSource> AddActionResultMethodToControllerAsync(this CsSource source, string actionName, CsClass model)
         {
-            return await source.Classes.FirstOrDefault().Members.FirstOrDefault().AddBeforeAsync(source.GenerateIActionResultSourceCode(actionName));
+            return await source.Classes.FirstOrDefault().Members.FirstOrDefault().AddBeforeAsync(source.GenerateIActionResultSourceCode(actionName, model));
         }
 
         /// <summary>
@@ -47,10 +47,14 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// <param name="source">The CsSource Controller object your referencing.</param>
         /// <param name="actionName">The string ActionName to be used when auto-generating this method code.</param>
         /// <returns>String represenation of the actual formatted source code for the ActionResult Method</returns>
-        public static string GenerateIActionResultSourceCode(this CsSource source, string actionName)
+        public static string GenerateIActionResultSourceCode(this CsSource source, string actionName, CsClass model)
         {
             var formatter = new SourceFormatter();
-            formatter.AppendCodeLine(2, $"public IActionResult {actionName}()");
+            if(model != null)
+                formatter.AppendCodeLine(2, $"public IActionResult {actionName}("+ model.Name + " " + model.Name.ToLower() + ")");
+            else
+                formatter.AppendCodeLine(2, $"public IActionResult {actionName}()");
+
             formatter.AppendCodeLine(2, "{");
             formatter.AppendCodeLine(3, "return View();");
             formatter.AppendCodeLine(2, "}");

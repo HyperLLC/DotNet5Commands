@@ -70,8 +70,8 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.SourceCode
                 var solution = await VisualStudioActions.SolutionActions.GetSolutionAsync();
 
                 //Get the solution projects and create the Model folder if one doesn't exist
-                var currentProject = await result.GetCurrentProjectAsync();
-                VsProjectFolder modelsFolder = await currentProject.CheckAddFolder("Models");
+                var SolutionProjects = await solution.GetProjectsAsync(true);
+                VsProjectFolder modelsFolder = await SolutionProjects.FirstOrDefault().CheckAddFolder("Models");
 
                 //Getting the hosting project for the command.
                 var hostingProject = await result.GetHostingProjectAsync();

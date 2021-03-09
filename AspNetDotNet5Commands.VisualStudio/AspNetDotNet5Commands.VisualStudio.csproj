@@ -87,19 +87,8 @@
   <ItemGroup>
     <Folder Include="Common\ExplorerCommands\Solution\" />
     <Folder Include="MVC\ExplorerCommands\Solution\" />
-    <Folder Include="Native\ExplorerCommands\Document\Dialog\" />
-    <Folder Include="Native\ExplorerCommands\Document\Logic\" />
-    <Folder Include="Native\ExplorerCommands\Document\Template\" />
-    <Folder Include="Native\ExplorerCommands\Folder\" />
-    <Folder Include="Native\ExplorerCommands\Project\Dialog\" />
-    <Folder Include="Native\ExplorerCommands\Project\Logic\" />
-    <Folder Include="Native\ExplorerCommands\Project\Template\" />
-    <Folder Include="Native\ExplorerCommands\Solution\Dialog\" />
-    <Folder Include="Native\ExplorerCommands\Solution\Logic\" />
-    <Folder Include="Native\ExplorerCommands\Solution\Template\" />
-    <Folder Include="Native\ExplorerCommands\SourceCode\Dialog\" />
-    <Folder Include="Native\ExplorerCommands\SourceCode\Logic\" />
-    <Folder Include="Native\ExplorerCommands\SourceCode\Template\" />
+    <Folder Include="MVC\ExplorerCommands\SourceCode\Dialogs\" />
+    <Folder Include="Razor\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MVC\ExplorerCommands\Folder\Dialogs\NewViewDialog.xaml">

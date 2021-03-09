@@ -9,11 +9,12 @@
                   Name="ViewDialog" 
                   WindowTitle="Select a View Template"
                   d:DesignHeight="500" d:DesignWidth="750"
-                  Height="580" Width="750">
+                  Height="620" Width="750">
     <Grid Background="#216ae6">
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -64,7 +65,12 @@
             <CheckBox x:Name="AddToNavigationCheckBox" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"/>
         </Grid>
 
-        <WrapPanel Name="WrapPanelButtons" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+        <Grid x:Name="ModelSelectionGrid" Grid.Row="5" Grid.ColumnSpan="2" Margin="10">
+            <Label Grid.Column="1" Content="Select a Model to Bind to Your View:" HorizontalAlignment="left" VerticalAlignment="Bottom" Margin="5" FontSize="20" Foreground="White" />
+            <ComboBox Grid.Column="2" VerticalAlignment="Bottom" Name="ModelsCombo" Padding="5" ItemsSource="{Binding ElementName=ViewDialog, Path=ModelList}" FontSize="20" DisplayMemberPath="Name" HorizontalAlignment="Right" Width="350" />
+        </Grid>
+        
+        <WrapPanel Name="WrapPanelButtons" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
             <Button x:Name="ButtonCancel" Content="Cancel" Click="ButtonCancel_Click" IsCancel="True" Width="260" Height="80"  Margin="0,0,40,0" Background="Transparent" BorderBrush="White" BorderThickness="1" Foreground="white" FontSize="20" />
             <Button x:Name="ButtonOk" Content="Create View" Click="ButtonOk_Click" IsDefault="True" Width="260" Height="80" Background="Transparent" BorderBrush="White" BorderThickness="1" Foreground="white" FontSize="20" />
         </WrapPanel>
