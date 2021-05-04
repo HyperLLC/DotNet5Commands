@@ -38,7 +38,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// <returns>CsSource that contains the newly generated code snippet for the ActionResult Method</returns>
         public static async Task<CsSource> AddActionResultMethodToControllerAsync(this CsSource source, string actionName, CsClass model)
         {
-            return await source.Classes.FirstOrDefault().Members.FirstOrDefault().AddBeforeAsync(source.GenerateIActionResultSourceCode(actionName, model));
+            return await source.Classes.FirstOrDefault().Methods.FirstOrDefault().AddAfterAsync(source.GenerateIActionResultSourceCode(actionName, model));
         }
 
         /// <summary>
