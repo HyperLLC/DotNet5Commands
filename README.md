@@ -15,7 +15,7 @@ In the simplest terms, CodeFactory is a real time software factory that is trigg
 
 Please see the following link for further information and guidance about the [CodeFactory Runtime](https://github.com/CodeFactoryLLC/CodeFactory) or the [CodeFactory SDK](https://www.nuget.org/packages/CodeFactorySDK/). 
 
-Register here for a free trial license of [CodeFactory RT](https://www.codefactory.software/freetrial).
+Register here for a free trial license of [CodeFactory for Visual Studio](https://www.codefactory.software/license-setup).
 
 ## Core purpose of this Commands Library
 This commands library was built using the [CodeFactory SDK](https://www.nuget.org/packages/CodeFactorySDK/) to life as a developer simply easier.  You can literally write thousands of lines of code per hour.  Team leads, Senior Developers, and the Architects on your projects can now define your architecture patterns & design tenants, then go enforce them through a commands library just like this so that your day-to-day developers can simply "color within the lines".  This reference library has the following commands and features avaible to anyone who has a valid copy of [CodeFactory Runtime](http://www.codefactory.software) installed as an extension inside of their local copy of Visual Studio 2019 Preview (since the referring solution is .Net 5). 
