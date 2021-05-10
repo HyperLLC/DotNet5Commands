@@ -38,7 +38,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         /// <returns>CsSource that contains the newly generated code snippet for the ActionResult Method</returns>
         public static async Task<CsSource> AddActionResultMethodToControllerAsync(this CsSource source, string actionName, CsClass model)
         {
-            return await source.Classes.FirstOrDefault().Methods.FirstOrDefault().AddAfterAsync(source.GenerateIActionResultSourceCode(actionName, model));
+            return await source.Classes.FirstOrDefault().Methods.LastOrDefault().AddAfterAsync(source.GenerateIActionResultSourceCode(actionName, model));
         }
 
         /// <summary>
@@ -50,7 +50,9 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
         public static string GenerateIActionResultSourceCode(this CsSource source, string actionName, CsClass model)
         {
             var formatter = new SourceFormatter();
-            if(model != null)
+            formatter.AppendCodeLine(2);
+
+            if (model != null)
                 formatter.AppendCodeLine(2, $"public IActionResult {actionName}("+ model.Name + " " + model.Name.ToLower() + ")");
             else
                 formatter.AppendCodeLine(2, $"public IActionResult {actionName}()");
@@ -60,7 +62,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
             formatter.AppendCodeLine(2, "}");
             formatter.AppendCodeLine(2);
             formatter.AppendCodeLine(2);
-            return formatter.ReturnSource();
+            return formatter.ReturnSource().TrimEnd();
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace AspNetDotNet5Commands.VisualStudio.MVC.ExplorerCommands.Document.Exten
             formatter.AppendCodeLine(2, "}");
             formatter.AppendCodeLine(1, "}");
             formatter.AppendCodeLine(0, "}");
-            return formatter.ReturnSource();
+            return formatter.ReturnSource().TrimEnd();
         }
     }
 }

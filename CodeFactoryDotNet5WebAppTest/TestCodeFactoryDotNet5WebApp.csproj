@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommonDeliveryFramework" Version="1.0.2191" />
+    <PackageReference Include="CommonDeliveryFramework" Version="1.21020.2" />
+    <PackageReference Include="CommonDeliveryFramework.Net.Aspnet" Version="1.21020.1" />
   </ItemGroup>
 
 </Project>
